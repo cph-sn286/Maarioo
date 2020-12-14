@@ -80,7 +80,7 @@ public class DbOrderMapper {
 
     public boolean deleteOrder(int order_id){
         boolean result = false;
-        String sql = "delete from order where order_id = ?";
+        String sql = "delete from mario.order where order_id = ?";
         try (Connection connection = database.connect()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1,order_id);
@@ -101,7 +101,7 @@ public class DbOrderMapper {
 
     public boolean updateOrder(Order order) {
         boolean result = false;
-        String sql = "update order set order_id = ?, amount = ?, customer_name = ?, customer_phone = ?, pickup_time = ?,  where pizza_id = ?";
+        String sql = "update mario.order set order_id = ?, amount = ?, customer_name = ?, customer_phone = ?, pickup_time = ?  where order_id = ?";
         try (Connection connection = database.connect()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, order.getOrder_id());
@@ -109,7 +109,7 @@ public class DbOrderMapper {
                 ps.setString(3, order.getCustomer_name());
                 ps.setString(4, order.getCustomer_phone());
                 ps.setInt(5, order.getPickup_time());
-                ps.setInt(5, order.getOrder_id());
+                ps.setInt(6, order.getOrder_id());
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1){
                     result = true;

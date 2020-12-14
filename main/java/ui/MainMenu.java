@@ -25,7 +25,7 @@ public class MainMenu {
 
         while (running) {
             showMenu();
-            switch (Input.getInt("Vælg 1-7: ")) {
+            switch (Input.getInt("Vælg 1-10: ")) {
                     case 1:
                         showMenuCard();
                         break;
@@ -41,7 +41,6 @@ public class MainMenu {
                     case 5:
                         updatePizza();
                         break;
-
                     case 6:
                         showOrderList();
                         break;
@@ -49,8 +48,15 @@ public class MainMenu {
                         insertOrder();
                         break;
                     case 8:
+                        updateOrder();
+                        break;
+                    case 9:
+                        deleteOrder();
+                        break;
+                    case 10:
                         running = false;
                         break;
+
 
 
             }
@@ -60,7 +66,7 @@ public class MainMenu {
 
     private void showMenu() {
         System.out.println("**** Marios pizzabar - hovedmenu ******");
-        System.out.println("[1] Vis menukort [2] Vis enkelt pizza [3] Fjern pizza [4] Opret ny pizza [5] Opdater pizza [6] Vis ordrerliste [7] Indsæt ordrer [8] Afslut");
+        System.out.println("[1] Vis menukort [2] Vis enkelt pizza [3] Fjern pizza [4] Opret ny pizza [5] Opdater pizza [6] Vis ordrerliste [7] Indsæt ordrer [8] opdater ordrer [9] fjern ordrer [10] Afslut");
     }
 
     private void showMenuCard() {
@@ -167,23 +173,20 @@ public class MainMenu {
         }
 
     }
-/*
+
     private void updateOrder() {
         System.out.println("***** Opdater Order *******");
         int order_id = Input.getInt("Indtast order_id på den du vil rette: ");
         System.out.println("Indtast ny værdi, hvis den skal rettes - eller blot <retur>: ");
         Order order = dbOrderMapper.getOrderById(order_id);
-        String newOrderNoInput = Input.getString("Ordernummer: (" + order.getOrder_id() + "): ");
-        if (newOrderNoInput.length() > 0) {
-            order.setOrder_id(Integer.parseInt(newOrderNoInput));
-        }
-        int newOrderPizza_noInput = Input.getInt("Pizza nummer: (" + order.getPizza_no() + "): ");
+
+        String newOrderPizza_noInput = Input.getString("Pizza nummer: (" + order.getPizza_no() + "): ");
         if (newOrderPizza_noInput.length() > 0) {
-            order.setPizza_no(newOrderPizza_noInput);
+            order.setPizza_no(Integer.parseInt(newOrderPizza_noInput));
         }
-        int newOrderAmountInput = Input.getInt("order amount: (" + order.getAmount() + "): ");
+        String newOrderAmountInput = Input.getString("order amount: (" + order.getAmount() + "): ");
         if (newOrderAmountInput.length() > 0) {
-            order.setAmount(newOrderAmountInput);
+            order.setAmount(Integer.parseInt(newOrderAmountInput));
         }
         String newCustomer_nameInput = Input.getString("Customer name: (" + order.getCustomer_name() + "): ");
         if (newCustomer_nameInput.length() > 0) {
@@ -193,18 +196,29 @@ public class MainMenu {
         if (newCustomer_phoneInput.length() > 0) {
             order.setCustomer_phone((newCustomer_phoneInput));
         }
-        int newPickup_timeInput = Input.getInt("Pickup_time: (" + order.getPickup_time() + "): ");
+        String newPickup_timeInput = Input.getString("Pickup_time: (" + order.getPickup_time() + "): ");
         if (newPickup_timeInput.length() > 0) {
-            order.setPickup_time((newPickup_timeInput));
+            order.setPickup_time((Integer.parseInt(newPickup_timeInput)));
         }
 
         boolean result = dbOrderMapper.updateOrder(order);
         if (result) {
             System.out.println("Orderen med id = " + order_id + " er nu opdateret");
         } else {
-            System.out.println("Vi kunne desværre ikke opdatere den nye pizza.");
+            System.out.println("Vi kunne desværre ikke opdatere ordreren.");
         }
     }
 
- */
+    private void deleteOrder() {
+        int order_id = Input.getInt("Indtast order_id på orderen som skal fjernes: ");
+        boolean result = dbOrderMapper.deleteOrder(order_id);
+        if (result) {
+            System.out.println("Orderen med id nr = " + order_id + " er nu fjernet");
+        } else {
+            System.out.println("Orderen med id nr = " + order_id + " findes ikke, og kan derfor ikke fjernes");
+        }
+
+    }
+
+
 }
