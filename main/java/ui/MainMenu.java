@@ -179,7 +179,7 @@ public class MainMenu {
         int order_id = Input.getInt("Indtast order_id på den du vil rette: ");
         System.out.println("Indtast ny værdi, hvis den skal rettes - eller blot <retur>: ");
         Order order = dbOrderMapper.getOrderById(order_id);
-
+        order.setOrder_id(order_id);
         String newOrderPizza_noInput = Input.getString("Pizza nummer: (" + order.getPizza_no() + "): ");
         if (newOrderPizza_noInput.length() > 0) {
             order.setPizza_no(Integer.parseInt(newOrderPizza_noInput));
@@ -202,6 +202,7 @@ public class MainMenu {
         }
 
         boolean result = dbOrderMapper.updateOrder(order);
+        System.out.println(order.toString());
         if (result) {
             System.out.println("Orderen med id = " + order_id + " er nu opdateret");
         } else {

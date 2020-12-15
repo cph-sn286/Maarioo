@@ -122,7 +122,6 @@ public class DbMenuCardMapper {
     public boolean updatePizza(Pizza pizza) {
         boolean result = false;
         String sql = "update pizza set pizza_no = ?, name = ?, ingredients = ?, price = ? where pizza_no = ?";
-        //"insert into pizza (pizza_no, name, ingredients, price) values (?,?,?,?)";
         try (Connection connection = database.connect()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, pizza.getPizzaNo());

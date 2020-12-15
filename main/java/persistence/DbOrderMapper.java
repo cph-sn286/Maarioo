@@ -101,16 +101,18 @@ public class DbOrderMapper {
 
     public boolean updateOrder(Order order) {
         boolean result = false;
-        String sql = "update mario.order set order_id = ?, amount = ?, customer_name = ?, customer_phone = ?, pickup_time = ?  where order_id = ?";
+        String sql = "update mario.order set order_id = ?, pizza_no = ?, amount = ?, customer_name = ?, customer_phone = ?, pickup_time = ? where order_id = ?";
         try (Connection connection = database.connect()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, order.getOrder_id());
-                ps.setInt(2, order.getAmount());
-                ps.setString(3, order.getCustomer_name());
-                ps.setString(4, order.getCustomer_phone());
-                ps.setInt(5, order.getPickup_time());
-                ps.setInt(6, order.getOrder_id());
+                ps.setInt(2, order.getPizza_no());
+                ps.setInt(3, order.getAmount());
+                ps.setString(4, order.getCustomer_name());
+                ps.setString(5, order.getCustomer_phone());
+                ps.setInt(6, order.getPickup_time());
+                ps.setInt(7, order.getOrder_id());
                 int rowsAffected = ps.executeUpdate();
+                System.out.println(rowsAffected + " antal linjer ændret");
                 if (rowsAffected == 1){
                     result = true;
                 }

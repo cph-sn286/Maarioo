@@ -88,6 +88,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
+                ", order_id=" + order_id +
                 ", pizza_no=" + pizza_no +
                 ", amount=" + amount +
                 ", customer_name='" + customer_name + '\'' +
