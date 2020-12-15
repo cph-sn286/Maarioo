@@ -1,5 +1,7 @@
 package domain;
 
+import ui.Input;
+
 import java.util.Date;
 
 public class Order {
@@ -94,7 +96,7 @@ public class Order {
                 ", customer_name='" + customer_name + '\'' +
                 ", customer_phone='" + customer_phone + '\'' +
                 ", order_time=" + order_time +
-                ", pickup_time=" + pickup_time +
+                ", pickup_time=" + Input.getMinutesToTimeFormat(pickup_time) +
                 ", removed=" + removed +
                 '}';
     }

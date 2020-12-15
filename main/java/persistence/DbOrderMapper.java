@@ -152,4 +152,31 @@ public class DbOrderMapper {
         return order;
     }
 
+    public List<Order> getAllOrdersSortByPickupTime() {
+
+        List<Order> orderList = new ArrayList<>();
+
+        String sql = "select * from mario.order order by pickup_time";
+        try (Connection connection = database.connect()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int order_id = rs.getInt("order_id");
+                    int pizza_no = rs.getInt("pizza_no");
+                    int amount = rs.getInt("amount");
+                    String customer_name = rs.getString("customer_name");
+                    String customer_phone = rs.getString("customer_phone");
+                    int pickup_time = rs.getInt("pickup_time");
+                    orderList.add(new Order(pizza_no, amount, customer_name, customer_phone, pickup_time));
+                }
+            } catch (SQLException throwables) {
+                // TODO: Make own throwable exception and let it bubble upwards
+                throwables.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return orderList;
+    }
+
 }

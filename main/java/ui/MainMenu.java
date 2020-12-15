@@ -56,6 +56,9 @@ public class MainMenu {
                     case 10:
                         running = false;
                         break;
+                case 11:
+                    showOrderlistSortByPickupTime();
+                    break;
 
 
 
@@ -153,6 +156,15 @@ public class MainMenu {
             System.out.println(order.toString());
         }
 
+
+    }
+
+    private void showOrderlistSortByPickupTime(){
+        System.out.println("**** Orderliste by pickup_time ****");
+        List<Order> orderList = dbOrderMapper.getAllOrdersSortByPickupTime();
+        for (Order order : orderList) {
+            System.out.println(order.toString());
+        }
 
     }
 
