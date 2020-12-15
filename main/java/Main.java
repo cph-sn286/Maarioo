@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Main {
 
-    // dev og update er merged
+    // her laver vi sortering af ordre liste
 
     public static void main(String[] args) {
         MainMenu mainMenu = new MainMenu();
