@@ -15,6 +15,7 @@ public class Order {
     private boolean removed;
 
 
+
     public Order(int pizza_no, int amount, String customer_name, String customer_phone, int pickup_time) {
         this.pizza_no = pizza_no;
         this.amount = amount;

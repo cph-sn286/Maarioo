@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.MarioException;
 import domain.Order;
 
 import java.sql.*;
@@ -15,7 +16,7 @@ public class DbOrderMapper {
         this.database = database;
     }
 
-    public Order insertOrder(Order order) {
+    public Order insertOrder(Order order) throws MarioException {
 
         boolean result = false;
         int newId = 0;
@@ -39,17 +40,15 @@ public class DbOrderMapper {
                     order = null;
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            // TODO: Make own throwable exception and let it bubble upwards
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return order;
     }
 
-    public List<Order> getAllOrders() {
+    public List<Order> getAllOrders() throws MarioException {
 
         List<Order> orderList = new ArrayList<>();
 
@@ -69,16 +68,15 @@ public class DbOrderMapper {
                     orderList.add(new Order(pizza_no, amount, customer_name, customer_phone, pickup_time));
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return orderList;
     }
 
-    public boolean deleteOrder(int order_id){
+    public boolean deleteOrder(int order_id) throws MarioException {
         boolean result = false;
         String sql = "delete from mario.order where order_id = ?";
         try (Connection connection = database.connect()) {
@@ -89,17 +87,15 @@ public class DbOrderMapper {
                     result = true;
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            // TODO: Make own throwable exception and let it bubble upwards
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return result;
     }
 
-    public boolean updateOrder(Order order) {
+    public boolean updateOrder(Order order) throws MarioException {
         boolean result = false;
         String sql = "update mario.order set order_id = ?, pizza_no = ?, amount = ?, customer_name = ?, customer_phone = ?, pickup_time = ? where order_id = ?";
         try (Connection connection = database.connect()) {
@@ -117,17 +113,15 @@ public class DbOrderMapper {
                     result = true;
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            // TODO: Make own throwable exception and let it bubble upwards
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return result;
     }
 
-    public Order getOrderById(int order_id) {
+    public Order getOrderById(int order_id) throws MarioException {
         Order order = null;
         String sql = "select * from mario.order where order_id = ?";
         try (Connection connection = database.connect()) {
@@ -143,16 +137,15 @@ public class DbOrderMapper {
                     order = new Order(pizza_no, amount, customer_name, customer_phone, pickup_time);
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return order;
     }
 
-    public List<Order> getAllOrdersSortByPickupTime() {
+    public List<Order> getAllOrdersSortByPickupTime() throws MarioException {
 
         List<Order> orderList = new ArrayList<>();
 
@@ -170,11 +163,10 @@ public class DbOrderMapper {
                     orderList.add(new Order(pizza_no, amount, customer_name, customer_phone, pickup_time));
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return orderList;
     }

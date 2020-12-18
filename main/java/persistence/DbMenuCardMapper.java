@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.MarioException;
 import domain.Pizza;
 
 import java.sql.*;
@@ -14,7 +15,7 @@ public class DbMenuCardMapper {
         this.database = database;
     }
 
-    public List<Pizza> getAllPizzas() {
+    public List<Pizza> getAllPizzas() throws MarioException {
 
         List<Pizza> pizzaList = new ArrayList<>();
 
@@ -32,16 +33,15 @@ public class DbMenuCardMapper {
                     pizzaList.add(new Pizza(pizza_id, pizza_no, name, ingredients, price));
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return pizzaList;
     }
 
-    public Pizza getPizzaById(int pizzaNo) {
+    public Pizza getPizzaById(int pizzaNo) throws MarioException {
         Pizza pizza = null;
         String sql = "select * from pizza where pizza_no = ?";
         try (Connection connection = database.connect()) {
@@ -57,16 +57,15 @@ public class DbMenuCardMapper {
                     pizza = new Pizza(pizza_id, pizza_no, name, ingredients, price);
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return pizza;
     }
 
-    public boolean deletePizza(int pizzaNo){
+    public boolean deletePizza(int pizzaNo) throws MarioException {
         boolean result = false;
         String sql = "delete from pizza where pizza_no = ?";
         try (Connection connection = database.connect()) {
@@ -77,17 +76,15 @@ public class DbMenuCardMapper {
                     result = true;
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            // TODO: Make own throwable exception and let it bubble upwards
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return result;
     }
 
-    public Pizza insertPizza(Pizza pizza){
+    public Pizza insertPizza(Pizza pizza) throws MarioException {
         boolean result = false;
         int newId = 0;
         String sql = "insert into pizza (pizza_no, name, ingredients, price) values (?,?,?,?)";
@@ -109,17 +106,15 @@ public class DbMenuCardMapper {
                     pizza = null;
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            // TODO: Make own throwable exception and let it bubble upwards
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return pizza;
     }
 
-    public boolean updatePizza(Pizza pizza) {
+    public boolean updatePizza(Pizza pizza) throws MarioException {
         boolean result = false;
         String sql = "update pizza set pizza_no = ?, name = ?, ingredients = ?, price = ? where pizza_no = ?";
         try (Connection connection = database.connect()) {
@@ -134,12 +129,10 @@ public class DbMenuCardMapper {
                     result = true;
                 }
             } catch (SQLException throwables) {
-                // TODO: Make own throwable exception and let it bubble upwards
-                throwables.printStackTrace();
+                throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (SQLException throwables) {
-            // TODO: Make own throwable exception and let it bubble upwards
-            throwables.printStackTrace();
+        } catch (MarioException | SQLException e ) {
+            throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return result;
     }
