@@ -79,6 +79,10 @@ public class MainMenu {
                         statisticsTotal();
                         break;
 
+                case 12:
+                    showOrderlistSortByPickupTime();
+                    break;
+
 
 
             }
@@ -323,9 +327,7 @@ public class MainMenu {
 
         for (Statistics statistics : pizzaAmountSold) {
 
-
                 uiPizzaNo = statistics.getPizzaNo();
-                pizzaName = statistics.getPizzaName();
                 amountSold = statistics.getAmountSold();
                 System.out.println("\nDer er solgt: " + amountSold + " stk");
                 System.out.println("af pizza: " + dbMenuCardMapper.getPizzaById(uiPizzaNo).getName());
