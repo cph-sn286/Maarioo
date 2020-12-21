@@ -1,5 +1,7 @@
 package ui;
 
+import com.google.protobuf.Message;
+import com.sun.org.apache.xalan.internal.xsltc.trax.SmartTransformerFactoryImpl;
 import com.sun.org.glassfish.external.statistics.Statistic;
 import domain.MarioException;
 import domain.Order;
@@ -10,6 +12,8 @@ import persistence.DbMenuCardMapper;
 import persistence.DbOrderMapper;
 import persistence.DbStatisticsMapper;
 
+import javax.swing.plaf.basic.BasicBorders;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,11 +30,12 @@ public class MainMenu {
     private DbStatisticsMapper dbStatisticsMapper;
     boolean running = true;
 
-    public MainMenu() {
+    public MainMenu() throws MarioException, IOException {
         try {
             this.database = new Database(USER, PASSWORD, URL);
         } catch (MarioException e) {
             System.out.println(e.getMessage());
+           MarioException.addLogMessage(e);
             this.running = false;
             // TODO: Skal logges til fil
         }
@@ -44,7 +49,7 @@ public class MainMenu {
 
         while (running) {
             showMenu();
-            switch (Input.getInt("Vælg 1-10: ")) {
+            switch (Input.getInt("Vælg 1-12: ")) {
                 case 1:
                     showMenuCard();
                     break;
@@ -212,7 +217,13 @@ public class MainMenu {
         try {
             orderList = dbOrderMapper.getAllOrders();
         } catch (MarioException e) {
-            e.printStackTrace();
+
+            try {
+                MarioException.addLogMessage(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
         }
         for (Order order : orderList) {
             System.out.println(order.toString());
@@ -336,4 +347,6 @@ public class MainMenu {
         }
 
     }
+
+
 }

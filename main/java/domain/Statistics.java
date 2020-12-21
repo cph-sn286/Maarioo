@@ -14,15 +14,16 @@ public class Statistics {
     int pizzaNo;
     String pizzaName;
     int amountSold;
+    int orderId;
 
 
     public Statistics() {
     }
 
-    public Statistics(int pizzaNo, int amountSold) {
+    public Statistics(int pizzaNo,int orderId , int amountSold) {
         this.pizzaNo = pizzaNo;
-     //   this.pizzaName = pizzaName;
         this.amountSold = amountSold;
+        this.orderId = orderId;
     }
 
     public int getPizzaNo() {

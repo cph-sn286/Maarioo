@@ -1,0 +1,12 @@
+Mon Dec 21 12:22:20 CET 2020: domain.MarioException: kære Mario, der er sket en databasefejl
+	at persistence.DbOrderMapper.getAllOrders(DbOrderMapper.java:73)
+	at ui.MainMenu.showOrderList(MainMenu.java:218)
+	at ui.MainMenu.mainMenuLoop(MainMenu.java:69)
+	at Main.main(Main.java:13)
+
+Mon Dec 21 12:23:18 CET 2020: domain.MarioException: kære Mario, der er sket en databasefejl
+	at persistence.DbOrderMapper.getAllOrders(DbOrderMapper.java:73)
+	at ui.MainMenu.showOrderList(MainMenu.java:218)
+	at ui.MainMenu.mainMenuLoop(MainMenu.java:69)
+	at Main.main(Main.java:13)
+

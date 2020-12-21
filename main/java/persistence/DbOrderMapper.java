@@ -63,7 +63,6 @@ public class DbOrderMapper {
                     int amount = rs.getInt("amount");
                     String customer_name = rs.getString("customer_name");
                     String customer_phone = rs.getString("customer_phone");
-                   // String order_time = rs.getString("order_time");
                     int pickup_time = rs.getInt("pickup_time");
                     orderList.add(new Order(pizza_no, amount, customer_name, customer_phone, pickup_time));
                 }

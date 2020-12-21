@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -29,14 +28,17 @@ public class DbStatisticsMapper {
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
+                int orderId = resultSet.getInt("order_id");
                 int pizzaNo = resultSet.getInt("pizza_no");
                 int amountSold = resultSet.getInt("amount");
-                statisticsList.add(new Statistics(pizzaNo, amountSold ));
+                statisticsList.add(new Statistics(pizzaNo,orderId , amountSold ));
             }
         } catch (MarioException | SQLException e) {
             throw new MarioException("SQL FEJL");
         }
         return statisticsList;
     }
+
+
 
 }
