@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class Main {
 
-    // her laver vi sortering af ordre liste
+    // Main merge
 
     public static void main(String[] args) throws MarioException, IOException {
         MainMenu mainMenu = new MainMenu();
