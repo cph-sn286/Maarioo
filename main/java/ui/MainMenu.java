@@ -35,7 +35,7 @@ public class MainMenu {
             this.database = new Database(USER, PASSWORD, URL);
         } catch (MarioException e) {
             System.out.println(e.getMessage());
-           MarioException.addLogMessage(e);
+            MarioException.addLogMessage(e);
             this.running = false;
             // TODO: Skal logges til fil
         }
@@ -81,13 +81,15 @@ public class MainMenu {
                     running = false;
                     break;
                 case 11:
-                        statisticsTotal();
-                        break;
+                    statisticsTotal();
+                    break;
 
                 case 12:
                     showOrderlistSortByPickupTime();
                     break;
-
+                case 13:
+                    statisticsTotalTest();
+                    break;
 
 
             }
@@ -334,19 +336,49 @@ public class MainMenu {
     private void statisticsTotal() throws MarioException {
         int amountSold;
         int uiPizzaNo;
-            List<Statistics> pizzaAmountSold = new ArrayList<>(dbStatisticsMapper.statisticsArchived());
+        List<Statistics> pizzaAmountSold = new ArrayList<>(dbStatisticsMapper.statisticsArchived());
 
         for (Statistics statistics : pizzaAmountSold) {
 
-                uiPizzaNo = statistics.getPizzaNo();
-                amountSold = statistics.getAmountSold();
-                System.out.println("\nDer er solgt: " + amountSold + " stk");
-                System.out.println("af pizza: " + dbMenuCardMapper.getPizzaById(uiPizzaNo).getName());
-                System.out.println("total omsætning på: " + amountSold + dbMenuCardMapper.getPizzaById(uiPizzaNo).getPrice() + ",-");
+            uiPizzaNo = statistics.getPizzaNo();
+            amountSold = statistics.getAmountSold();
+            System.out.println("\nDer er solgt: " + amountSold + " stk");
+            System.out.println("af pizza: " + dbMenuCardMapper.getPizzaById(uiPizzaNo).getName());
+            System.out.println("total omsætning på: " + amountSold + dbMenuCardMapper.getPizzaById(uiPizzaNo).getPrice() + ",-");
 
         }
 
     }
 
+    private void statisticsTotalTest() throws MarioException {
+        Statistics statistics = new Statistics();
+        List<Pizza> pizzaList = dbMenuCardMapper.getAllPizzas();
+        List<Order> orderList = dbOrderMapper.getAllOrders();
+        List<Statistics> statisticsList = new ArrayList<>();
 
-}
+        for (Pizza pizza : pizzaList) {
+            int totalAmount = 0;
+            int totalEarned = 0;
+            statisticsList.add(new Statistics(pizza.getPizzaNo(), totalAmount, totalEarned));
+            for (Order order : orderList) {
+                int pizzaNo = order.getPizza_no();
+                if (pizza.getPizzaNo() == order.getPizza_no()) {
+                    totalAmount = totalAmount + order.getAmount();
+                    totalEarned = totalAmount * dbMenuCardMapper.getPizzaById(pizzaNo).getPrice();
+                    statistics.setPizzaNo(pizzaNo);
+                    statistics.setPizzaName(pizza.getName());
+                    statistics.setAmountSold(totalAmount);
+                    statistics.setTotalEarned(totalEarned);
+                }
+
+                }
+
+            System.out.println(statistics);
+        }
+
+
+    }
+
+    }
+
+

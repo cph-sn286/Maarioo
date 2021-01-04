@@ -31,7 +31,7 @@ public class DbStatisticsMapper {
                 int orderId = resultSet.getInt("order_id");
                 int pizzaNo = resultSet.getInt("pizza_no");
                 int amountSold = resultSet.getInt("amount");
-                statisticsList.add(new Statistics(pizzaNo,orderId , amountSold ));
+                statisticsList.add(new Statistics(pizzaNo, amountSold, 0 ));
             }
         } catch (MarioException | SQLException e) {
             throw new MarioException("SQL FEJL");

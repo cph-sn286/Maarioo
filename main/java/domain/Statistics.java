@@ -14,20 +14,39 @@ public class Statistics {
     int pizzaNo;
     String pizzaName;
     int amountSold;
-    int orderId;
+    int totalEarned;
+
 
 
     public Statistics() {
     }
 
-    public Statistics(int pizzaNo,int orderId , int amountSold) {
+    public Statistics(int pizzaNo , int amountSold, int totalEarned) {
         this.pizzaNo = pizzaNo;
         this.amountSold = amountSold;
-        this.orderId = orderId;
+        this.totalEarned = totalEarned;
     }
 
     public int getPizzaNo() {
         return pizzaNo;
+    }
+
+    public int getTotalEarned() {
+        return totalEarned;
+    }
+
+    public void setTotalEarned(int totalEarned) {
+        this.totalEarned = totalEarned;
+    }
+
+    @Override
+    public String toString() {
+        return "Statistics{" +
+                "pizzaNo=" + pizzaNo +
+                ", pizzaName='" + pizzaName + '\'' +
+                ", amountSold=" + amountSold +
+                ", totalEarned=" + totalEarned +
+                '}';
     }
 
     public void setPizzaNo(int pizzaNo) {
