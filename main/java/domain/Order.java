@@ -16,6 +16,15 @@ public class Order {
 
 
 
+    public Order(int order_id, int pizza_no, int amount, String customer_name, String customer_phone, int pickup_time) {
+        this.order_id = order_id;
+        this.pizza_no = pizza_no;
+        this.amount = amount;
+        this.customer_name = customer_name;
+        this.customer_phone = customer_phone;
+        this.pickup_time = pickup_time;
+    }
+
     public Order(int pizza_no, int amount, String customer_name, String customer_phone, int pickup_time) {
         this.pizza_no = pizza_no;
         this.amount = amount;

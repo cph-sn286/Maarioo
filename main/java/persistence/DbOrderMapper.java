@@ -42,7 +42,7 @@ public class DbOrderMapper {
             } catch (SQLException throwables) {
                 throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (MarioException | SQLException e ) {
+        } catch (MarioException | SQLException e) {
             throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return order;
@@ -64,12 +64,12 @@ public class DbOrderMapper {
                     String customer_name = rs.getString("customer_name");
                     String customer_phone = rs.getString("customer_phone");
                     int pickup_time = rs.getInt("pickup_time");
-                    orderList.add(new Order(pizza_no, amount, customer_name, customer_phone, pickup_time));
+                    orderList.add(new Order(order_id, pizza_no, amount, customer_name, customer_phone, pickup_time));
                 }
             } catch (SQLException throwables) {
                 throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (MarioException | SQLException e ) {
+        } catch (MarioException | SQLException e) {
             throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return orderList;
@@ -80,15 +80,15 @@ public class DbOrderMapper {
         String sql = "delete from mario.order where order_id = ?";
         try (Connection connection = database.connect()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1,order_id);
+                ps.setInt(1, order_id);
                 int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1){
+                if (rowsAffected == 1) {
                     result = true;
                 }
             } catch (SQLException throwables) {
                 throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (MarioException | SQLException e ) {
+        } catch (MarioException | SQLException e) {
             throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return result;
@@ -108,13 +108,13 @@ public class DbOrderMapper {
                 ps.setInt(7, order.getOrder_id());
                 int rowsAffected = ps.executeUpdate();
                 System.out.println(rowsAffected + " antal linjer ændret");
-                if (rowsAffected == 1){
+                if (rowsAffected == 1) {
                     result = true;
                 }
             } catch (SQLException throwables) {
                 throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (MarioException | SQLException e ) {
+        } catch (MarioException | SQLException e) {
             throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return result;
@@ -133,12 +133,12 @@ public class DbOrderMapper {
                     String customer_name = rs.getString("customer_name");
                     String customer_phone = rs.getString("customer_phone");
                     int pickup_time = rs.getInt("pickup_time");
-                    order = new Order(pizza_no, amount, customer_name, customer_phone, pickup_time);
+                    order = new Order(order_id, pizza_no, amount, customer_name, customer_phone, pickup_time);
                 }
             } catch (SQLException throwables) {
                 throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (MarioException | SQLException e ) {
+        } catch (MarioException | SQLException e) {
             throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return order;
@@ -159,12 +159,12 @@ public class DbOrderMapper {
                     String customer_name = rs.getString("customer_name");
                     String customer_phone = rs.getString("customer_phone");
                     int pickup_time = rs.getInt("pickup_time");
-                    orderList.add(new Order(pizza_no, amount, customer_name, customer_phone, pickup_time));
+                    orderList.add(new Order(order_id, pizza_no, amount, customer_name, customer_phone, pickup_time));
                 }
             } catch (SQLException throwables) {
                 throw new MarioException("kære Mario, der er sket en databasefejl");
             }
-        } catch (MarioException | SQLException e ) {
+        } catch (MarioException | SQLException e) {
             throw new MarioException("kære Mario, der er sket en databasefejl");
         }
         return orderList;

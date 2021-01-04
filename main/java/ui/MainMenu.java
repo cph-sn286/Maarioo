@@ -10,7 +10,6 @@ import domain.Statistics;
 import persistence.Database;
 import persistence.DbMenuCardMapper;
 import persistence.DbOrderMapper;
-import persistence.DbStatisticsMapper;
 
 import javax.swing.plaf.basic.BasicBorders;
 import java.io.IOException;
@@ -27,7 +26,6 @@ public class MainMenu {
     private Database database;
     private DbMenuCardMapper dbMenuCardMapper;
     private DbOrderMapper dbOrderMapper;
-    private DbStatisticsMapper dbStatisticsMapper;
     boolean running = true;
 
     public MainMenu() throws MarioException, IOException {
@@ -41,7 +39,6 @@ public class MainMenu {
         }
         this.dbMenuCardMapper = new DbMenuCardMapper(database);
         this.dbOrderMapper = new DbOrderMapper(database);
-        this.dbStatisticsMapper = new DbStatisticsMapper(database);
 
     }
 
@@ -86,9 +83,6 @@ public class MainMenu {
 
                 case 12:
                     showOrderlistSortByPickupTime();
-                    break;
-                case 13:
-                    statisticsTotalTest();
                     break;
 
 
@@ -333,24 +327,8 @@ public class MainMenu {
 
     }
 
+
     private void statisticsTotal() throws MarioException {
-        int amountSold;
-        int uiPizzaNo;
-        List<Statistics> pizzaAmountSold = new ArrayList<>(dbStatisticsMapper.statisticsArchived());
-
-        for (Statistics statistics : pizzaAmountSold) {
-
-            uiPizzaNo = statistics.getPizzaNo();
-            amountSold = statistics.getAmountSold();
-            System.out.println("\nDer er solgt: " + amountSold + " stk");
-            System.out.println("af pizza: " + dbMenuCardMapper.getPizzaById(uiPizzaNo).getName());
-            System.out.println("total omsætning på: " + amountSold + dbMenuCardMapper.getPizzaById(uiPizzaNo).getPrice() + ",-");
-
-        }
-
-    }
-
-    private void statisticsTotalTest() throws MarioException {
         Statistics statistics = new Statistics();
         List<Pizza> pizzaList = dbMenuCardMapper.getAllPizzas();
         List<Order> orderList = dbOrderMapper.getAllOrders();
@@ -359,21 +337,22 @@ public class MainMenu {
         for (Pizza pizza : pizzaList) {
             int totalAmount = 0;
             int totalEarned = 0;
-            statisticsList.add(new Statistics(pizza.getPizzaNo(), totalAmount, totalEarned));
+            statisticsList.add(new Statistics(pizza.getPizzaNo(),pizza.getName(), totalAmount, totalEarned));
+            statistics.setPizzaNo(pizza.getPizzaNo());
+            statistics.setPizzaName(pizza.getName());
+            statistics.setAmountSold(totalAmount);
+            statistics.setTotalEarned(totalEarned);
             for (Order order : orderList) {
-                int pizzaNo = order.getPizza_no();
                 if (pizza.getPizzaNo() == order.getPizza_no()) {
                     totalAmount = totalAmount + order.getAmount();
-                    totalEarned = totalAmount * dbMenuCardMapper.getPizzaById(pizzaNo).getPrice();
-                    statistics.setPizzaNo(pizzaNo);
-                    statistics.setPizzaName(pizza.getName());
+                    totalEarned = totalAmount * dbMenuCardMapper.getPizzaById(pizza.getPizzaNo()).getPrice();
                     statistics.setAmountSold(totalAmount);
                     statistics.setTotalEarned(totalEarned);
                 }
 
-                }
-
+            }
             System.out.println(statistics);
+
         }
 
 

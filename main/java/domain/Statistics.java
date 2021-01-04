@@ -21,8 +21,9 @@ public class Statistics {
     public Statistics() {
     }
 
-    public Statistics(int pizzaNo , int amountSold, int totalEarned) {
+    public Statistics(int pizzaNo, String pizzaName , int amountSold, int totalEarned) {
         this.pizzaNo = pizzaNo;
+        this.pizzaName = pizzaName;
         this.amountSold = amountSold;
         this.totalEarned = totalEarned;
     }
